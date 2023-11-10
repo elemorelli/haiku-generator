@@ -1,6 +1,6 @@
 const verses = [
   "con alegría",
-  "en silencio profundo",
+  "puro silencio",
   "como un suspiro",
   "entre sombras",
   "en libertad",

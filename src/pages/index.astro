@@ -42,17 +42,17 @@ const secondColor = getRandomColorAndRemove(colors);
     <div class="">
       <p
         id="firstLine"
-        class="transition-opacity duration-1000 opacity-10 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        class="transition-opacity duration-1000 opacity-1 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
         {firstLine}
       </p>
       <p
         id="secondLine"
-        class="transition-opacity duration-1000 opacity-10 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        class="transition-opacity duration-1000 opacity-1 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
         {secondLine}
       </p>
       <p
         id="thirdLine"
-        class="transition-opacity duration-1000 opacity-10 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        class="transition-opacity duration-1000 opacity-1 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
         {thirdLine}
       </p>
     </div>
@@ -60,9 +60,9 @@ const secondColor = getRandomColorAndRemove(colors);
 </Layout>
 
 <script>
-  const toggleOpacity = (element) => {
+  const toggleOpacity = (element: HTMLElement) => {
     element.classList.add("opacity-100");
-    element.classList.remove("opacity-10");
+    element.classList.remove("opacity-1");
   };
 
   const firstLine = document.getElementById("firstLine");

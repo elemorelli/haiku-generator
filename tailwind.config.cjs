@@ -10,7 +10,7 @@ module.exports = {
         landscape: "url('/assets/background.jpg')",
       },
       opacity: {
-        10: ".10",
+        1: ".01"
       },
     },
   },
