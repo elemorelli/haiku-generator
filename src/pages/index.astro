@@ -38,8 +38,14 @@ const secondColor = getRandomColorAndRemove(colors);
 
 <Layout title="">
   <main
-    class={`bg-gradient-to-${randomDirection} from-${firstColor} to-${secondColor} bg-cover bg-no-repeat bg-center w-full h-full flex flex-col justify-around pl-8 md:pl-16 lg:pl-32`}>
-    <div class="">
+    class={`bg-gradient-to-${randomDirection} from-${firstColor} to-${secondColor} bg-cover bg-no-repeat bg-center w-full h-full flex flex-col justify-around`}>
+    <div
+      id="refresh-drag"
+      class="fixed -top-16 h-20 flex justify-center items-center transition-all w-full text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+      <span>Regenerating Haiku...</span>
+    </div>
+
+    <div class="flex flex-col justify-center items-center transition-all visible:top-0">
       <p
         id="firstLine"
         class="transition-opacity duration-1000 opacity-1 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
@@ -60,22 +66,38 @@ const secondColor = getRandomColorAndRemove(colors);
 </Layout>
 
 <script>
-  const toggleOpacity = (element: HTMLElement) => {
-    element.classList.add("opacity-100");
-    element.classList.remove("opacity-1");
+  const pullToRefresh = document.getElementById("refresh-drag");
+  let touchstartY = 0;
+  document.addEventListener("touchstart", (e) => {
+    touchstartY = e.touches[0].clientY;
+  });
+  document.addEventListener("touchmove", (e) => {
+    const touchY = e.touches[0].clientY;
+    const touchDiff = touchY - touchstartY;
+    if (touchDiff > 0 && window.scrollY === 0) {
+      pullToRefresh.classList.add("top-0");
+      pullToRefresh.classList.remove("-top-16");
+      e.preventDefault();
+    }
+  });
+  document.addEventListener("touchend", (e) => {
+    if (pullToRefresh.classList.contains("top-0")) {
+      location.reload();
+    }
+  });
+
+  const toggleOpacity = (element: HTMLElement, milliseconds: number) => {
+    setTimeout(() => {
+      element.classList.add("opacity-100");
+      element.classList.remove("opacity-1");
+    }, milliseconds);
   };
 
   const firstLine = document.getElementById("firstLine");
   const secondLine = document.getElementById("secondLine");
   const thirdLine = document.getElementById("thirdLine");
 
-  setTimeout(() => {
-    toggleOpacity(firstLine);
-  }, 1000);
-  setTimeout(() => {
-    toggleOpacity(secondLine);
-  }, 2000);
-  setTimeout(() => {
-    toggleOpacity(thirdLine);
-  }, 3000);
+  toggleOpacity(firstLine, 1000);
+  toggleOpacity(secondLine, 2000);
+  toggleOpacity(thirdLine, 3000);
 </script>
