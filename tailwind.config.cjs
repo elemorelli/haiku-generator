@@ -58,5 +58,5 @@ module.exports = {
     "from-pink-500",
     "from-rose-400",
   ],
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [],
 };
