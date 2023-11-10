@@ -12,8 +12,6 @@
       "@types/*": ["types/*"],
       "@icons/*": ["components/icons/*"]
     },
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
     "verbatimModuleSyntax": true
   }
 }
