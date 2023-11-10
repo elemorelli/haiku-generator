@@ -24,6 +24,7 @@
     "@astrojs/react": "^3.0.4",
     "@astrojs/tailwind": "^5.0.2",
     "@fontsource/inter": "^5.0.15",
+    "@fontsource/patrick-hand-sc": "^5.0.17",
     "@tailwindcss/typography": "^0.5.10",
     "@types/alpinejs": "^3.13.5",
     "@types/react": "^18.2.37",

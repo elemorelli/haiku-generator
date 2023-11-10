@@ -1,5 +1,6 @@
 ---
 import { SEO } from "astro-seo";
+import "@fontsource/patrick-hand-sc";
 
 export interface Props {
   title: string;
@@ -48,6 +49,7 @@ const { title } = Astro.props;
       body {
         height: 100%;
         width: 100%;
+        font-family: "Patrick Hand SC", sans-serif;
       }
       img {
         content-visibility: auto;
