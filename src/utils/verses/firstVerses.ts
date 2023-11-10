@@ -18,6 +18,8 @@ const verses = [
   "Canto de aves",
   "Riachuelo claro ",
   "Río sereno",
+  "Viento otoñal",
+  "La flor de loto",
 ];
 
 export default verses;

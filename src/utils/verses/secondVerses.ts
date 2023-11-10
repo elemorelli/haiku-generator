@@ -17,6 +17,12 @@ const verses = [
   "vida en movimiento",
   "universo en calma",
   "naturaleza viva",
+  "por este camino",
+  "entre juncos, fluyendo,",
+  "pero la luciérnaga",
+  "con viento de otoño",
+  "flotando en el agua",
+  "se despierta y mira",
 ];
 
 export default verses;

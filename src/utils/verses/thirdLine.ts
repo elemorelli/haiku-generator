@@ -11,6 +11,7 @@ const verses = [
   "aventura espera",
   "libertad y canto",
   "agua que abraza",
+  "solo un sendero",
 ];
 
 export default verses;
