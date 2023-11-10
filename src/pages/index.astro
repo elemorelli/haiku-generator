@@ -1,29 +1,11 @@
 ---
 import Layout from "@layouts/Layout.astro";
-
 import generateHaiku from "@utils/haikuGenerator";
 
 const [firstLine, secondLine, thirdLine] = generateHaiku();
 
 const directions = ["t", "r", "b", "l", "tr", "br", "bl", "tl"];
 const randomDirection = directions[Math.floor(Math.random() * directions.length)];
-
-// const colors = [
-//   "red",
-//   "pink",
-//   "purple",
-//   "indigo",
-//   "blue",
-//   "cyan",
-//   "teal",
-//   "green",
-//   "lime",
-//   "yellow",
-//   "amber",
-//   "orange",
-//   "brown",
-//   "grey",
-// ];
 
 const colors = [
   "slate-600",
@@ -59,17 +41,41 @@ const secondColor = getRandomColorAndRemove(colors);
     class={`bg-gradient-to-${randomDirection} from-${firstColor} to-${secondColor} bg-cover bg-no-repeat bg-center w-full h-full flex flex-col justify-around pl-8 md:pl-16 lg:pl-32`}>
     <div class="">
       <p
-        class="text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        id="firstLine"
+        class="transition-opacity duration-1000 opacity-10 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
         {firstLine}
       </p>
       <p
-        class="text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        id="secondLine"
+        class="transition-opacity duration-1000 opacity-10 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
         {secondLine}
       </p>
       <p
-        class="text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        id="thirdLine"
+        class="transition-opacity duration-1000 opacity-10 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
         {thirdLine}
       </p>
     </div>
   </main>
 </Layout>
+
+<script>
+  const toggleOpacity = (element) => {
+    element.classList.add("opacity-100");
+    element.classList.remove("opacity-10");
+  };
+
+  const firstLine = document.getElementById("firstLine");
+  const secondLine = document.getElementById("secondLine");
+  const thirdLine = document.getElementById("thirdLine");
+
+  setTimeout(() => {
+    toggleOpacity(firstLine);
+  }, 1000);
+  setTimeout(() => {
+    toggleOpacity(secondLine);
+  }, 2000);
+  setTimeout(() => {
+    toggleOpacity(thirdLine);
+  }, 3000);
+</script>

@@ -9,6 +9,9 @@ module.exports = {
       backgroundImage: {
         landscape: "url('/assets/background.jpg')",
       },
+      opacity: {
+        10: ".10",
+      },
     },
   },
   safelist: [
