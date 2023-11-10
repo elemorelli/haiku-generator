@@ -1,10 +1,9 @@
 ---
 import { SEO } from "astro-seo";
-import "@fontsource/patrick-hand-sc";
+import "@fontsource/twinkle-star";
 
 export interface Props {
-  title: string;
-  footer?: boolean;
+  title?: string;
 }
 
 const resolvedImageWithDomain = new URL("/opengraph.jpg", Astro.url).toString();
@@ -23,7 +22,7 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
 
     <SEO
-      title={`${title}${title && " | "}Haiku Generator`}
+      title="Haiku Generator"
       description="Haiku Generator"
       twitter={{
         creator: "@elemorelli",
@@ -49,7 +48,7 @@ const { title } = Astro.props;
       body {
         height: 100%;
         width: 100%;
-        font-family: "Patrick Hand SC", sans-serif;
+        font-family: "Twinkle Star", cursive, sans-serif;
         user-select: none;
         overscroll-behavior-y: auto;
       }
