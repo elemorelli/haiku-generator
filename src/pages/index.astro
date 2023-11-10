@@ -1,0 +1,39 @@
+---
+import { getImage } from "astro:assets";
+import background from "@assets/background.jpg";
+const optimizedBackground = await getImage({ src: background, format: "avif" });
+
+import Layout from "@layouts/Layout.astro";
+
+import generateHaiku from "@utils/haikuGenerator";
+
+const [firstLine, secondLine, thirdLine] = generateHaiku();
+---
+
+<Layout title="">
+  <main
+    style={`background-image: url(${optimizedBackground.src});`}
+    class="bg-cover bg-no-repeat bg-center w-full h-full flex flex-col justify-around pl-32">
+    <div class="">
+      <p class="text-6xl py-6 text-slate-100 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        {firstLine}
+      </p>
+      <p class="text-6xl py-6 text-slate-100 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        {secondLine}
+      </p>
+      <p class="text-6xl py-6 text-slate-100 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+        {thirdLine}
+      </p>
+    </div>
+    <!-- <div class="mt-6 flex flex-col sm:flex-row gap-3">
+      <button id="refresh">Otro</button>
+    </div> -->
+  </main>
+</Layout>
+
+<script>
+  const refreshButton = document.getElementById("refresh");
+  refreshButton.addEventListener("click", () => {
+    location.reload();
+  });
+</script>
