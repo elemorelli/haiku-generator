@@ -26,7 +26,7 @@ const closingLines = [
   "todo en paz ya",
   "se va el rumor",
   "la voz se calma",
-  "noche sin fin",
+  "la noche sin fin",
   "todo ya pasó",
   "solo queda luz",
 ];
