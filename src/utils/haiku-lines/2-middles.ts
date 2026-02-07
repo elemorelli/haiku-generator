@@ -26,7 +26,7 @@ const middleLines = [
   "sus pasos ya se pierden",
   "la ciudad ya despierta",
   "luces solas sin calle",
-  "una idea lenta nace",
+  "una idea nace",
   "un tren lejano se va",
   "papel y hondo eco",
 ];

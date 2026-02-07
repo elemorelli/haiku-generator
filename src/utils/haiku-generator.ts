@@ -55,9 +55,9 @@ const countSyllables = (text: string) => {
   return syllables;
 };
 
-const getRandomLine = (versesArray: string[]): Line => {
-  const index = Math.floor(Math.random() * versesArray.length);
-  const text = versesArray[index];
+const getRandomLine = (lines: string[]): Line => {
+  const index = Math.floor(Math.random() * lines.length);
+  const text = lines[index];
 
   return {
     text,
