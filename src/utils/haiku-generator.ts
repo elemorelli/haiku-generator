@@ -1,45 +1,71 @@
-// import Haiku from "@types/types";
-
 import { closingLines, middleLines, openingLines } from "@utils/haiku-lines";
+import type { Haiku, Line } from "../types/haiku";
 
-// const countSyllablesInSpanish = (sentence: string): number => {
-//   // Convertir la oración a minúsculas para un procesamiento uniforme
-//   sentence = sentence.toLowerCase();
+const countSyllables = (text: string) => {
+  const normalized = text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // removes accents
+    .replace(/[^a-zñü\s]/g, "");
 
-//   // Definir las reglas para contar las sílabas en español
-//   // Estas reglas son simplificadas y pueden no ser 100% precisas.
-//   const rules = [
-//     /que|qui|güe|gu(i|e)|iu|ui|ei|ie|ia|io|ua|uo|ai|ae|ea|eo|ou|au|oi|oe/g, // Dígrafos y diptongos
-//     /iái|iéi|uái|uée|uió/i, // Triptongos
-//     /aé|eé|oé|uá/g, // Hiatos
-//     /[aeiouáéíóú]/g, // Vocales
-//   ];
+  const vowels = "aeiouü";
+  const diphthongs = ["ai", "au", "ei", "eu", "oi", "ou", "ia", "ie", "io", "ua", "ue", "uo", "iu", "ui"];
 
-//   // Contador de sílabas
-//   let syllables = 0;
+  const words = normalized.split(/\s+/);
 
-//   sentence = sentence.replace(/([^c])\1+/g, "$1");
+  let syllables = 0;
 
-//   // Aplicar las reglas a la oración
-//   for (const rule of rules) {
-//     const matches = sentence.match(rule);
-//     if (matches) {
-//       syllables += matches.length;
-//     }
-//   }
+  for (const word of words) {
+    let i = 0;
 
-//   // Asegurarse de que el número de sílabas sea al menos 1
-//   syllables = Math.max(syllables, 1);
+    while (i < word.length) {
+      const char = word[i];
 
-//   return syllables;
-// };
+      if (vowels.includes(char)) {
+        const next = word.slice(i, i + 2);
+        const nextThree = word.slice(i, i + 3);
 
-const getRandomLine = (versesArray: string[]): string => {
-  const index = Math.floor(Math.random() * versesArray.length);
-  return versesArray[index];
+        // triptongo
+        if (
+          nextThree.length === 3 &&
+          vowels.includes(nextThree[0]) &&
+          vowels.includes(nextThree[1]) &&
+          vowels.includes(nextThree[2])
+        ) {
+          syllables++;
+          i += 3;
+          continue;
+        }
+
+        // diptongo
+        if (diphthongs.includes(next)) {
+          syllables++;
+          i += 2;
+          continue;
+        }
+
+        // vocal sola
+        syllables++;
+      }
+
+      i++;
+    }
+  }
+
+  return syllables;
 };
 
-const generateHaiku = () => ({
+const getRandomLine = (versesArray: string[]): Line => {
+  const index = Math.floor(Math.random() * versesArray.length);
+  const text = versesArray[index];
+
+  return {
+    text,
+    syllabes: countSyllables(text),
+  };
+};
+
+const generateHaiku = (): Haiku => ({
   opening: getRandomLine(openingLines),
   middle: getRandomLine(middleLines),
   closing: getRandomLine(closingLines),

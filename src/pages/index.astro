@@ -49,6 +49,10 @@ const colors = [
 const pick = (arr: string[]) => arr.splice(Math.floor(Math.random() * arr.length), 1)[0];
 const firstColor = pick(colors);
 const secondColor = pick(colors);
+
+const isOpeningInvalid = opening.syllabes !== 5;
+const isMiddleInvalid = middle.syllabes !== 7;
+const isClosingInvalid = closing.syllabes !== 5;
 ---
 
 <Layout title="Haiku Generator">
@@ -64,9 +68,9 @@ const secondColor = pick(colors);
     </div>
 
     <div class="haiku-container">
-      <p id="opening" class="haiku-line">{opening}</p>
-      <p id="middle" class="haiku-line">{middle}</p>
-      <p id="closing" class="haiku-line">{closing}</p>
+      <p id="opening" class={`haiku-line ${isOpeningInvalid ? "invalid" : ""}`}>{opening.text}</p>
+      <p id="middle" class={`haiku-line ${isMiddleInvalid ? "invalid" : ""}`}>{middle.text}</p>
+      <p id="closing" class={`haiku-line ${isClosingInvalid ? "invalid" : ""}`}>{closing.text}</p>
     </div>
   </main>
 </Layout>
@@ -117,6 +121,14 @@ const secondColor = pick(colors);
     transition: opacity 1s ease;
     letter-spacing: 0.15em;
     font-size: clamp(2.25rem, 6vw, 5rem);
+  }
+  
+  .haiku-line.invalid {
+    color: #fde68a; /* amber-200 */
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-style: dotted;
+    text-underline-offset: 0.4em;
   }
 
   .haiku-line.visible {
