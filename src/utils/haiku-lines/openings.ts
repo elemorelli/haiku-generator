@@ -1,0 +1,25 @@
+const openings = [
+  "El sol brilla",
+  "La luna canta",
+  "El río fluye",
+  "El ave vuela",
+  "Luz de luna en paz",
+  "Entre la bruma",
+  "Río murmura",
+  "En la montaña azul",
+  "La flor se abre",
+  "Bajo el sol nuestro",
+  "En la rama",
+  "Luna llena hoy",
+  "Cielo estrellar",
+  "Flores blancas",
+  "Montaña alta",
+  "Niebla en el valle",
+  "Canto de aves",
+  "Riachuelo claro",
+  "Río sereno",
+  "Viento otoñal",
+  "Flor de loto",
+];
+
+export default openings;

@@ -1,104 +1,154 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import generateHaiku from "@utils/haikuGenerator";
+import generateHaiku from "@utils/haiku-generator";
 
-const [firstLine, secondLine, thirdLine] = generateHaiku();
+const { opening, middle, closing } = generateHaiku();
 
-const directions = ["t", "r", "b", "l", "tr", "br", "bl", "tl"];
-const randomDirection = directions[Math.floor(Math.random() * directions.length)];
-
-const colors = [
-  "slate-600",
-  "zinc-800",
-  "stone-500",
-  "red-500",
-  "orange-500",
-  "amber-300",
-  "lime-400",
-  "green-500",
-  "emerald-600",
-  "teal-700",
-  "cyan-400",
-  "sky-300",
-  "indigo-700",
-  "violet-700",
-  "fuchsia-300",
-  "pink-500",
-  "rose-400",
-];
-
-const getRandomColorAndRemove = (colorsArray: any[string]) => {
-  const index = Math.floor(Math.random() * colorsArray.length);
-  return colorsArray.splice(index, 1)[0];
+const directions = {
+  t: "to top",
+  r: "to right",
+  b: "to bottom",
+  l: "to left",
+  tr: "to top right",
+  br: "to bottom right",
+  bl: "to bottom left",
+  tl: "to top left",
 };
 
-const firstColor = getRandomColorAndRemove(colors);
-const secondColor = getRandomColorAndRemove(colors);
+const directionKeys = Object.keys(directions);
+const randomDirection = directions[directionKeys[Math.floor(Math.random() * directionKeys.length)]];
+
+const colors = [
+  "#020617", // slate-950
+  "#27272a", // zinc-800
+  "#475569", // slate-600
+  "#78716c", // stone-500
+
+  "#ef4444", // red-500
+  "#f97316", // orange-500
+  "#f59e0b", // amber-500
+  "#fcd34d", // amber-300
+
+  "#4d7c0f", // lime-700
+  "#a3e635", // lime-400
+  "#22c55e", // green-500
+  "#059669", // emerald-600
+
+  "#0f766e", // teal-700
+  "#22d3ee", // cyan-400
+  "#3b82f6", // blue-500
+  "#7dd3fc", // sky-300
+  "#4338ca", // indigo-700
+  "#6d28d9", // violet-700
+
+  "#f0abfc", // fuchsia-300
+  "#ec4899", // pink-500
+  "#fb7185", // rose-400
+];
+
+const pick = (arr: string[]) => arr.splice(Math.floor(Math.random() * arr.length), 1)[0];
+const firstColor = pick(colors);
+const secondColor = pick(colors);
 ---
 
-<Layout>
+<Layout title="Haiku Generator">
   <main
-    class={`bg-gradient-to-${randomDirection} from-${firstColor} to-${secondColor} bg-cover bg-no-repeat bg-center w-full h-full flex flex-col justify-around`}>
-    <div
-      id="refresh-drag"
-      class="fixed -top-16 h-20 flex justify-center items-center transition-all w-full text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)]">
+    class="haiku-bg"
+    style={`
+      --gradient-direction: ${randomDirection};
+      --color-from: ${firstColor};
+      --color-to: ${secondColor};
+    `}>
+    <div id="refresh-drag" class="pull-refresh hidden">
       <span>Regenerating Haiku...</span>
     </div>
 
-    <div
-      class="flex flex-col justify-center items-center transition-all visible:top-0 text-slate-200 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.8)] text-center">
-      <p
-        id="firstLine"
-        class="transition-opacity duration-1000 opacity-1 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 tracking-widest">
-        {firstLine}
-      </p>
-      <p
-        id="secondLine"
-        class="transition-opacity duration-1000 opacity-1 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 tracking-widest">
-        {secondLine}
-      </p>
-      <p
-        id="thirdLine"
-        class="transition-opacity duration-1000 opacity-1 text-4xl md:text-6xl lg:text-8xl py-2 md:py-4 lg:py-6 tracking-widest">
-        {thirdLine}
-      </p>
+    <div class="haiku-container">
+      <p id="opening" class="haiku-line">{opening}</p>
+      <p id="middle" class="haiku-line">{middle}</p>
+      <p id="closing" class="haiku-line">{closing}</p>
     </div>
   </main>
 </Layout>
 
+<style>
+  .haiku-bg {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: linear-gradient(var(--gradient-direction), var(--color-from), var(--color-to));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .pull-refresh {
+    position: fixed;
+    top: 0;
+    transform: translateY(-4rem);
+    height: 5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e5e7eb;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease;
+  }
+
+  .pull-refresh.visible {
+    transform: translateY(0);
+  }
+
+  .haiku-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #e5e7eb;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  .haiku-line {
+    opacity: 0;
+    transition: opacity 1s ease;
+    letter-spacing: 0.15em;
+    font-size: clamp(2.25rem, 6vw, 5rem);
+  }
+
+  .haiku-line.visible {
+    opacity: 1;
+  }
+</style>
+
 <script>
   const pullToRefresh = document.getElementById("refresh-drag");
   let touchstartY = 0;
+
   document.addEventListener("touchstart", (e) => {
     touchstartY = e.touches[0].clientY;
   });
+
   document.addEventListener("touchmove", (e) => {
     const touchY = e.touches[0].clientY;
-    const touchDiff = touchY - touchstartY;
-    if (touchDiff > 0 && window.scrollY === 0) {
-      pullToRefresh.classList.add("top-0");
-      pullToRefresh.classList.remove("-top-16");
+    if (touchY - touchstartY > 0 && window.scrollY === 0) {
+      pullToRefresh.classList.add("visible");
       e.preventDefault();
     }
   });
-  document.addEventListener("touchend", (e) => {
-    if (pullToRefresh.classList.contains("top-0")) {
+
+  document.addEventListener("touchend", () => {
+    if (pullToRefresh.classList.contains("visible")) {
       location.reload();
     }
   });
 
-  const toggleOpacity = (element: HTMLElement, milliseconds: number) => {
-    setTimeout(() => {
-      element.classList.add("opacity-100");
-      element.classList.remove("opacity-1");
-    }, milliseconds);
-  };
+  const reveal = (el: HTMLElement, delay: number) => setTimeout(() => el.classList.add("visible"), delay);
 
-  const firstLine = document.getElementById("firstLine");
-  const secondLine = document.getElementById("secondLine");
-  const thirdLine = document.getElementById("thirdLine");
-
-  toggleOpacity(firstLine, 1000);
-  toggleOpacity(secondLine, 2000);
-  toggleOpacity(thirdLine, 3000);
+  reveal(document.getElementById("opening"), 1000);
+  reveal(document.getElementById("middle"), 2000);
+  reveal(document.getElementById("closing"), 3000);
 </script>

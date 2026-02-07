@@ -1,6 +1,6 @@
 ---
 import { SEO } from "astro-seo";
-import "@fontsource/twinkle-star";
+import "@fontsource/kosugi-maru";
 
 export interface Props {
   title?: string;
@@ -10,7 +10,7 @@ const resolvedImageWithDomain = new URL("/opengraph.jpg", Astro.url).toString();
 const { title } = Astro.props;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es-AR">
   <head>
     <meta charset="UTF-8" />
@@ -22,8 +22,8 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
 
     <SEO
-      title="Haiku Generator"
-      description="Haiku Generator"
+      title={title}
+      description={title}
       twitter={{
         creator: "@elemorelli",
         site: "@elemorelli",
@@ -43,26 +43,32 @@ const { title } = Astro.props;
   </head>
   <body>
     <slot />
+
     <style is:global>
       html,
       body {
+        margin: 0;
         height: 100%;
         width: 100%;
-        font-family: "Twinkle Star", cursive, sans-serif;
+        font-family: "Kosugi Maru", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         user-select: none;
         overscroll-behavior-y: auto;
       }
+
       img {
         content-visibility: auto;
       }
+
       [x-cloak] {
         display: none;
       }
+
       input[type="number"]::-webkit-inner-spin-button,
       input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
+
       input[type="number"] {
         -moz-appearance: textfield;
       }
