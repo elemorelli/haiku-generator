@@ -1,6 +1,6 @@
 // import Haiku from "@types/types";
 
-import { closings, middles, openings } from "@utils/haiku-lines";
+import { closingLines, middleLines, openingLines } from "@utils/haiku-lines";
 
 // const countSyllablesInSpanish = (sentence: string): number => {
 //   // Convertir la oración a minúsculas para un procesamiento uniforme
@@ -40,9 +40,9 @@ const getRandomLine = (versesArray: string[]): string => {
 };
 
 const generateHaiku = () => ({
-  opening: getRandomLine(openings),
-  middle: getRandomLine(middles),
-  closing: getRandomLine(closings),
+  opening: getRandomLine(openingLines),
+  middle: getRandomLine(middleLines),
+  closing: getRandomLine(closingLines),
 });
 
 export default generateHaiku;

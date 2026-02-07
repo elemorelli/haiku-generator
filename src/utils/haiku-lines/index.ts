@@ -1,3 +1,3 @@
-export { default as openings } from "./openings";
-export { default as middles } from "./middles";
-export { default as closings } from "./closings";
+export { default as openingLines } from "./1-openings";
+export { default as middleLines } from "./2-middles";
+export { default as closingLines } from "./3-closings";
